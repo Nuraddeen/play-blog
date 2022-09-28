@@ -1,0 +1,32 @@
+@import helper._
+
+@(createUserForm: Form[forms.CreateUserForm])(implicit request: MessagesRequestHeader)
+
+@main("Create new user") {
+<h1> Create New User </h1>
+
+<form action="@routes.PeopleController.save()" method="post">
+    
+    <label>Enter full name</label>
+    <input type="text" name="fullname" required>
+    <br/>
+
+    <label>Enter Dob</label>
+    <input type="date" name="dob" required>
+    <br/>
+
+    <label>Enter postal code</label>
+    <input type="text" name="postalCode" required>
+    <br />
+
+    <input type="submit" value="Submit"/>
+</form>
+
+@helper.form(action = routes.PeopleController.save()) {
+    @CSRF.formField
+    @inputText(createUserForm("fullname"))
+    @inputDate(createUserForm("dob"))
+    @inputText(createUserForm("postalCode"))
+    <input type="submit" value="Submit" />
+}
+}

@@ -1,0 +1,8 @@
+@(users: List[String])
+@main("Users List") {
+    <ol>
+        @for(user <- users) {
+            <li>@user</li>  
+        }
+    </ol>
+}
