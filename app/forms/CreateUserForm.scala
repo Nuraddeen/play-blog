@@ -6,14 +6,17 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 
-case class CreateUserForm(fullname: String, dob: Date, postalCode: Int)
+case class CreateUserForm(fullname: String, dob: Date, postalCode: Int, email: String, employed: Boolean, cities: List[String])
 
 object CreateUserForm {
   val form: Form[CreateUserForm] = Form(
     mapping(
-      "fullname" -> text,
+      "fullname" -> nonEmptyText,
       "dob" -> date,
-      "postalCode" -> number
+      "postalCode" -> number,
+      "email" -> email,
+      "employed" -> boolean,
+      "cities" -> list(text)
     )(CreateUserForm.apply)(CreateUserForm.unapply)
   )
 }

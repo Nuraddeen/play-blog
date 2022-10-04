@@ -24,6 +24,9 @@ class PeopleController @Inject() (
   }
 
   def create() = Action { implicit request: MessagesRequest[AnyContent] =>
+    // pre filled form
+    //   Ok(views.html.users.create(CreateUserForm.form.fill(CreateUserForm("Nura fillde", new java.util.Date(), 8908))))
+
     Ok(views.html.users.create(CreateUserForm.form))
   }
 
@@ -39,12 +42,21 @@ class PeopleController @Inject() (
   // }
 
   def save() = Action { implicit request =>
-    val data: CreateUserForm = CreateUserForm.form.bindFromRequest().get
-    val message = s"==========\n YOUR SUBMISSION " +
-      s"\n========== Fullname: ${data.fullname} " +
-      s"\n DOB: ${data.dob}" +
-      s"\n Postal Code: ${data.postalCode}"
-    Ok(message)
+    CreateUserForm.form
+      .bindFromRequest()
+      .fold(
+        formWithErrors => {
+          BadRequest(views.html.users.create(formWithErrors))
+        },
+        formData => {
+          val message = s"==========\n YOUR SUBMISSION " +
+            s"\n========== Fullname: ${formData.fullname} " +
+            s"\n DOB: ${formData.dob}" +
+            s"\n Postal Code: ${formData.postalCode}"
+          Ok(message)
+        }
+      )
+
   }
 
 }

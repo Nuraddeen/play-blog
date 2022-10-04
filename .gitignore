@@ -20,3 +20,11 @@ server.pid
 *.eml
 /dist/
 .cache
+*.iml
+/.metals
+/.bloop/
+*.class
+.vscode/
+metals.sbt~/
+out/
+.g8/

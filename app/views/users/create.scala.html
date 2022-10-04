@@ -27,6 +27,18 @@
     @inputText(createUserForm("fullname"))
     @inputDate(createUserForm("dob"))
     @inputText(createUserForm("postalCode"))
+
+    @inputText(createUserForm("email"))
+    @inputText(createUserForm("employed"))
+    @repeat(createUserForm("cities"), min = 3) { field =>
+        @inputText(field)
+
+    }
+
+    <input type="text" id="@{createUserForm("fullname").id}" name="@{createUserForm("fullname").label}" value="@{createUserForm("fullname").value}">
+
+    <br />
+    <br />
     <input type="submit" value="Submit" />
 }
 }
